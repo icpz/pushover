@@ -65,6 +65,10 @@ pushover_t *pushover_new(void) {
     if (ret != CURLE_OK) {
         goto __curl_err;
     }
+    ret = curl_easy_setopt(c->curl, CURLOPT_FORBID_REUSE, 1L);
+    if (ret != CURLE_OK) {
+        goto __curl_err;
+    }
 
     c->request = cJSON_CreateObject();
     if (!c->request) {
